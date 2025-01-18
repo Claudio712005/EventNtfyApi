@@ -14,4 +14,7 @@ public class UserResponseDTO {
   private String email;
   private String createdAt;
   private String updatedAt;
+
+  public UserResponseDTO(long l, String user1, String mail) {
+  }
 }

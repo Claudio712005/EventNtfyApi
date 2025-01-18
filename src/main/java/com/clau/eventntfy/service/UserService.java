@@ -47,17 +47,17 @@ public class UserService {
     );
   }
 
-  public UserResponseDTO save(UserRequestDTO user) {
+  public void save(UserRequestDTO user) {
     if (user == null) {
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Usuário não informado");
     }
 
     validarUnicidade(user);
 
-    return userMapper.toUserResponseDTO(repository.save(userMapper.toUser(user)));
+    repository.save(userMapper.toUser(user));
   }
 
-  public UserResponseDTO update(Long id, UserRequestDTO user) {
+  public void update(Long id, UserRequestDTO user) {
 
     if(id == null) {
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Id não informado");
@@ -76,7 +76,7 @@ public class UserService {
     updatedUser.setId(id);
     updatedUser.setCreatedAt(existingUser.getCreatedAt());
 
-    return userMapper.toUserResponseDTO(repository.save(updatedUser));
+    repository.save(updatedUser);
   }
 
   private void validarUnicidade(UserRequestDTO requestDTO){

@@ -32,12 +32,12 @@ public class UserController {
   }
 
   @PostMapping()
-  public UserResponseDTO save(@RequestBody @Valid UserRequestDTO user) {
-    return service.save(user);
+  public void save(@RequestBody @Valid UserRequestDTO user) {
+    service.save(user);
   }
 
   @PutMapping("/{id}")
-  public UserResponseDTO update(@PathVariable Long id, @RequestBody @Valid UserRequestDTO user) {
-    return service.update(id, user);
+  public void update(@PathVariable Long id, @RequestBody @Valid UserRequestDTO user) {
+    service.update(id, user);
   }
 }
