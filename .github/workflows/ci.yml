@@ -24,8 +24,17 @@ jobs:
           distribution: 'adopt'
           java-version: '17'
 
-      - name: Build project
-        run: mvn clean install
+      - name: Determine Flyway Activation
+        id: flyway-config
+        run: |
+          if [[ "${{ github.ref_name }}" == "main" ]]; then
+            echo "FLYWAY_SKIP=false" >> $GITHUB_ENV
+          else
+            echo "FLYWAY_SKIP=true" >> $GITHUB_ENV
+          fi
+
+      - name: Build project with conditional Flyway
+        run: mvn clean install -Dflyway.skip=${{ env.FLYWAY_SKIP }}
 
       - name: Run tests
         run: mvn test
