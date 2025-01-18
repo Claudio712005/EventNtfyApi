@@ -24,17 +24,13 @@ jobs:
           distribution: 'adopt'
           java-version: '17'
 
-      - name: Determine Flyway Activation
-        id: flyway-config
+      - name: Use application-test.properties for tests
         run: |
-          if [[ "${{ github.ref_name }}" == "main" ]]; then
-            echo "FLYWAY_SKIP=false" >> $GITHUB_ENV
-          else
-            echo "FLYWAY_SKIP=true" >> $GITHUB_ENV
-          fi
+          cp src/main/resources/application-test.properties src/main/resources/application.properties
+          echo "Using application-test.properties for all branches"
 
-      - name: Build project with conditional Flyway
-        run: mvn clean install -Dflyway.skip=${{ env.FLYWAY_SKIP }}
+      - name: Build project
+        run: mvn clean install
 
       - name: Run tests
         run: mvn test
