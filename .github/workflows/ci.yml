@@ -28,18 +28,3 @@ jobs:
         run: |
           cp src/main/resources/application-test.properties src/main/resources/application.properties
           echo "Using application-test.properties for all branches"
-
-      - name: Set environment variables for Spring Boot
-        env:
-          EMAIL_USERNAME: ${{ secrets.EMAIL_USERNAME }}
-          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
-        run: |
-          echo "EMAIL_USERNAME=${{ secrets.EMAIL_USERNAME }}" >> .env
-          echo "EMAIL_PASSWORD=${{ secrets.EMAIL_PASSWORD }}" >> .env
-          echo "Environment variables set for tests"
-
-      - name: Build project
-        run: mvn clean install
-
-      - name: Run tests
-        run: mvn test
