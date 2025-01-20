@@ -19,4 +19,8 @@ public class UserRequestDTO {
   @NotNull(message = "Email não informado")
   private String email;
 
+  @NotBlank(message = "Número de telefone não informado")
+  @NotNull(message = "Número de telefone não informado")
+  private String phoneNumber;
+
 }

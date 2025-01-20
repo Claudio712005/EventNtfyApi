@@ -1,6 +1,7 @@
 package com.clau.eventntfy.model;
 
 import com.clau.eventntfy.enums.NotificationStatus;
+import com.clau.eventntfy.enums.TypeNotification;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -42,7 +43,11 @@ public class Notification {
   private Integer priority;
 
   @Column(name = "type", nullable = false)
-  private String type;
+  @Enumerated(EnumType.STRING)
+  private TypeNotification type;
+
+  @Column(name = "subject")
+  private String subject;
 
   @Column(name = "created_at", updatable = false)
   @CreationTimestamp
@@ -56,7 +61,7 @@ public class Notification {
   @JoinColumn(name = "user_id", referencedColumnName = "id")
   private User user;
 
-  @ManyToMany
+  @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(
           name = "notification_recipients",
           joinColumns = @JoinColumn(name = "notification_id"),

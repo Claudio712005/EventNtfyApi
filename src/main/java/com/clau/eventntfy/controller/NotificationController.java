@@ -21,6 +21,7 @@ public class NotificationController {
 
   @PostMapping
   public ResponseEntity createNotification(@RequestBody @Valid NotificationRequestDTO requestDTO) {
+    notificationService.saveNotification(requestDTO);
     return ResponseEntity.status(HttpStatus.CREATED).build();
   }
 

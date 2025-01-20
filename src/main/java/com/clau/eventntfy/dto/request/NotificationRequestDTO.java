@@ -1,5 +1,6 @@
 package com.clau.eventntfy.dto.request;
 
+import com.clau.eventntfy.enums.TypeNotification;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -22,9 +23,10 @@ public class NotificationRequestDTO {
   @NotNull(message = "Data agendada não informada")
   private LocalDateTime scheduledTime;
   private Integer priority;
-  @NotBlank(message = "Tipo de notificação não informado")
-  private String type;
+  @NotNull(message = "Tipo de notificação não informado")
+  private TypeNotification type;
   @NotEmpty(message = "Destinatários do email não informado")
   private List<String> emailRecipient;
+  private String subject;
 
 }

@@ -30,7 +30,7 @@ public interface NotificationMapper {
   @Named("mapRecipientsToResponse")
   default List<UserResponseDTO> mapRecipientsToResponse(List<User> recipients) {
     return recipients.stream()
-            .map(user -> new UserResponseDTO(user.getId(), user.getUsername(), user.getEmail(),
+            .map(user -> new UserResponseDTO(user.getId(), user.getUsername(), user.getEmail(), user.getPhoneNumber(),
                     user.getCreatedAt() != null ? user.getCreatedAt().toString() : null,
                     user.getUpdatedAt() != null ? user.getUpdatedAt().toString() : null))
             .collect(Collectors.toList());

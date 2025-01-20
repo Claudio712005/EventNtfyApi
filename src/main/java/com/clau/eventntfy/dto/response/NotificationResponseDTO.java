@@ -1,5 +1,6 @@
 package com.clau.eventntfy.dto.response;
 
+import com.clau.eventntfy.enums.TypeNotification;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,7 +18,8 @@ public class NotificationResponseDTO {
   private String updatedAt;
   private String scheduledTime;
   private Integer priority;
-  private String type;
+  private TypeNotification type;
   private List<UserResponseDTO> emailRecipient;
+  private String subject;
 
 }

@@ -30,6 +30,9 @@ public class User {
   @Column(name = "email", nullable = false, unique = true)
   private String email;
 
+  @Column(name = "phone_number", nullable = false, unique = true)
+  private String phoneNumber;
+
   @Column(name = "created_at", updatable = false)
   @CreationTimestamp
   private LocalDateTime createdAt;
@@ -38,6 +41,6 @@ public class User {
   @UpdateTimestamp
   private LocalDateTime updatedAt;
 
-  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
   private List<Notification> notifications = new ArrayList<>();
 }
