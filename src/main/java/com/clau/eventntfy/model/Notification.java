@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -41,6 +43,14 @@ public class Notification {
 
   @Column(name = "type", nullable = false)
   private String type;
+
+  @Column(name = "created_at", updatable = false)
+  @CreationTimestamp
+  private LocalDateTime createdAt;
+
+  @Column(name = "updated_at")
+  @UpdateTimestamp
+  private LocalDateTime updatedAt;
 
   @ManyToOne
   @JoinColumn(name = "user_id", referencedColumnName = "id")

@@ -13,17 +13,9 @@ import java.time.format.DateTimeFormatter;
 @Mapper(componentModel = "spring")
 public interface UserMapper {
 
-  @Mapping(target = "createdAt", source = "createdAt", qualifiedByName = "localDateTimeToString")
-  @Mapping(target = "updatedAt", source = "updatedAt", qualifiedByName = "localDateTimeToString")
+  @Mapping(target = "createdAt", source = "createdAt", dateFormat = "dd/MM/yyyy HH:mm:ss")
+  @Mapping(target = "updatedAt", source = "updatedAt", dateFormat = "dd/MM/yyyy HH:mm:ss")
   UserResponseDTO toUserResponseDTO(User user);
 
   User toUser(UserRequestDTO userResponseDTO);
-
-  @Named("localDateTimeToString")
-  default String localDateTimeToString(LocalDateTime localDateTime) {
-    if (localDateTime == null) {
-      return null;
-    }
-    return localDateTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
-  }
 }

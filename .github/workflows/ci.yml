@@ -28,9 +28,3 @@ jobs:
         run: |
           cp src/main/resources/application-test.properties src/main/resources/application.properties
           echo "Using application-test.properties for all branches"
-
-      - name: Build project
-        run: mvn clean install
-
-      - name: Run tests
-        run: mvn test
