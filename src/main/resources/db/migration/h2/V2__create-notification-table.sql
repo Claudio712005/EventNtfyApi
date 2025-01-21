@@ -3,6 +3,7 @@ CREATE TABLE notifications
     id             BIGINT AUTO_INCREMENT PRIMARY KEY,
     user_id        BIGINT    NOT NULL,
     message        TEXT      NOT NULL,
+    subject        VARCHAR(255),
     scheduled_time TIMESTAMP NOT NULL,
     sent           BOOLEAN     DEFAULT FALSE,
     status         VARCHAR(50) DEFAULT 'PENDING',

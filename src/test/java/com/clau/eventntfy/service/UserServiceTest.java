@@ -41,8 +41,8 @@ class UserServiceTest {
 
     MockitoAnnotations.openMocks(this);
     defaultUsers = List.of(
-            new User(1L, "user1", "user1@gmail.com", LocalDateTime.now(), LocalDateTime.now(), null),
-            new User(2L, "user2", "user2@gmail.com", LocalDateTime.now(), LocalDateTime.now(), null)
+            new User(1L, "user1", "user1@gmail.com", "1111111111", LocalDateTime.now(), LocalDateTime.now(), null),
+            new User(2L, "user2", "user2@gmail.com", "1111111111", LocalDateTime.now(), LocalDateTime.now(), null)
     );
   }
 
@@ -90,9 +90,9 @@ class UserServiceTest {
   @Test
   @DisplayName("Deve salvar usuário com sucesso")
   void deve_salvar_usuario_com_sucesso() {
-    UserRequestDTO userRequestDTO = new UserRequestDTO("newUser", "newUser@gmail.com");
-    User user = new User(null, "newUser", "newUser@gmail.com", null, null, null);
-    User savedUser = new User(3L, "newUser", "newUser@gmail.com", LocalDateTime.now(), LocalDateTime.now(), null);
+    UserRequestDTO userRequestDTO = new UserRequestDTO("newUser", "newUser@gmail.com", "11111111");
+    User user = new User(null, "newUser", "newUser@gmail.com", "11111111", null, null, null);
+    User savedUser = new User(3L, "newUser", "newUser@gmail.com", "11111111", LocalDateTime.now(), LocalDateTime.now(), null);
 
     when(userMapper.toUser(userRequestDTO)).thenReturn(user);
     when(userRepository.save(user)).thenReturn(savedUser);
@@ -108,7 +108,7 @@ class UserServiceTest {
   @Test
   @DisplayName("Deve lançar exceção ao tentar salvar usuário com dados inválidos")
   void deve_lancar_excecao_ao_tentar_salvar_usuario_com_dados_invalidos() {
-    UserRequestDTO invalidUser = new UserRequestDTO(null, null);
+    UserRequestDTO invalidUser = new UserRequestDTO(null, null, null);
 
     ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> userService.save(invalidUser));
 
@@ -141,9 +141,9 @@ class UserServiceTest {
   @DisplayName("Deve atualizar usuário com sucesso")
   void deve_atualizar_usuario_com_sucesso() {
     Long id = 1L;
-    UserRequestDTO userRequestDTO = new UserRequestDTO("updatedUser", "updatedUser@gmail.com");
+    UserRequestDTO userRequestDTO = new UserRequestDTO("updatedUser", "updatedUser@gmail.com", "11111111");
     User existingUser = defaultUsers.get(0);
-    User updatedUser = new User(id, "updatedUser", "updatedUser@gmail.com", existingUser.getCreatedAt(), LocalDateTime.now(), null);
+    User updatedUser = new User(id, "updatedUser", "updatedUser@gmail.com", "11111111", existingUser.getCreatedAt(), LocalDateTime.now(), null);
 
     when(userRepository.findById(id)).thenReturn(Optional.of(existingUser));
     when(userMapper.toUser(userRequestDTO)).thenReturn(updatedUser);

@@ -89,11 +89,18 @@ public class UserService {
     if(StringUtils.isBlank(requestDTO.getEmail())){
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email não informado");
     }
+    if(StringUtils.isBlank(requestDTO.getPhoneNumber())){
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Telefone não informado");
+    }
     if(repository.existsByUsername(requestDTO.getUsername())){
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Nome de usuário já cadastrado");
     }
     if(repository.existsByEmail(requestDTO.getEmail())){
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email já cadastrado");
     }
+    if(repository.existsByPhoneNumber(requestDTO.getPhoneNumber())){
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Telefone já cadastrado");
+    }
+
   }
 }
