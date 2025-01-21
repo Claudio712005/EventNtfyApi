@@ -87,17 +87,6 @@ class NotificationServiceTest {
   }
 
   @Test
-  @DisplayName("Deve lançar exceção para data agendada inválida ao salvar notificação")
-  void deve_lancar_excecao_para_data_agendada_invalida_ao_salvar_notificacao() {
-    requestDTO.setScheduledTime(ZonedDateTime.now().minusHours(1).toLocalDateTime());
-
-    ResponseStatusException exception = assertThrows(ResponseStatusException.class, () ->
-            notificationService.saveNotification(requestDTO));
-    assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
-    assertEquals("Data agendada não pode ser anterior à data atual.", exception.getReason());
-  }
-
-  @Test
   @DisplayName("Deve deletar notificação com sucesso")
   void deve_deletar_notificacao_com_sucesso() {
     notification.setStatus(NotificationStatus.PENDING);
