@@ -27,3 +27,12 @@ jobs:
         run: docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/event_ntfy .
       - name: Push Docker image
         run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/event_ntfy
+
+  deploy:
+    needs: build
+    runs-on: self-hosted
+    steps:
+      - name: Pull image from Docker Hub
+        run: docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/event_ntfy:latest
+      - name: Run Docker container
+        run: docker run -d -p 8080:8080 --name event_ntfy ${{ secrets.DOCKER_HUB_USERNAME }}/event_ntfy
