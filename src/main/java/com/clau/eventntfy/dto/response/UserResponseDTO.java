@@ -3,11 +3,12 @@ package com.clau.eventntfy.dto.response;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.hateoas.RepresentationModel;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserResponseDTO {
+public class UserResponseDTO extends RepresentationModel<UserResponseDTO> {
 
   private Long id;
   private String username;

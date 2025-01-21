@@ -4,8 +4,8 @@ import com.clau.eventntfy.enums.NotificationStatus;
 import com.clau.eventntfy.model.Notification;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
-import lombok.RequiredArgsConstructor;
-import org.hibernate.Hibernate;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,14 +18,13 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.time.format.DateTimeFormatter;
-import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
+@NoArgsConstructor
 public class EmailService {
 
-  private final JavaMailSender javaMailSender;
-  private final ResourceLoader resourceLoader;
+  private JavaMailSender javaMailSender;
+  private ResourceLoader resourceLoader;
 
   private static final Logger LOGGER = LoggerFactory.getLogger(EmailService.class);
 
@@ -40,6 +39,16 @@ public class EmailService {
 
   private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
+  public EmailService(JavaMailSender javaMailSender, ResourceLoader resourceLoader,
+                      Resource createdNotificationTemplate,
+                      Resource alertNotificationTemplate,
+                      Resource deletedNotificationTemplate) {
+    this.javaMailSender = javaMailSender;
+    this.resourceLoader = resourceLoader;
+    this.createdNotificationTemplate = createdNotificationTemplate;
+    this.alertNotificationTemplate = alertNotificationTemplate;
+    this.deletedNotificationTemplate = deletedNotificationTemplate;
+  }
 
   public void sendEmail(Notification notification) {
     try {

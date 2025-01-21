@@ -1,6 +1,7 @@
 package com.clau.eventntfy.service;
 
 import com.clau.eventntfy.dto.request.NotificationRequestDTO;
+import com.clau.eventntfy.dto.response.NotificationResponseDTO;
 import com.clau.eventntfy.enums.NotificationStatus;
 import com.clau.eventntfy.enums.TypeNotification;
 import com.clau.eventntfy.mapper.NotificationMapper;
@@ -12,6 +13,9 @@ import io.micrometer.common.util.StringUtils;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -102,6 +106,29 @@ public class NotificationService {
 
     notification.getRecipients().clear();
     repository.delete(notification);
+  }
+
+  public List<NotificationResponseDTO> findAllNotifications() {
+    List<Notification> notifications = repository.findAll();
+    return mapper.toCollectionResponseDTO(notifications).stream().toList();
+  }
+
+  public NotificationResponseDTO findById(Long id) {
+    Notification notification = repository.findById(id)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Notificação não encontrada."));
+    return mapper.toResponseDTO(notification);
+  }
+
+  public List<NotificationResponseDTO> findByUserId(Long userId) {
+    List<Notification> notifications = repository.findByUser_Id(userId);
+    return mapper.toCollectionResponseDTO(notifications).stream().toList();
+  }
+
+  public Page<NotificationResponseDTO> findAllNotificationsPaginated(int page, int size, String sort, String direction) {
+    Sort sorting = Sort.by(Sort.Direction.fromString(direction), sort);
+    PageRequest pageRequest = PageRequest.of(page, size, sorting);
+    return repository.findAllNotifications(pageRequest)
+            .map(mapper::toResponseDTO);
   }
 
   public void sendNotifications() {

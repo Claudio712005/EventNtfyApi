@@ -23,4 +23,6 @@ public class UserRequestDTO {
   @NotNull(message = "Número de telefone não informado")
   private String phoneNumber;
 
+  public UserRequestDTO(String s, String mail) {
+  }
 }
