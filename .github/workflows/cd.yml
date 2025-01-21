@@ -13,3 +13,17 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin',
+          java-version: '17'
+      - name: Build project
+        run: mvn clean install -DskipTests
+      - name: Login to Docker Hub
+        run: docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_PASSWORD }}
+      - name: Build Docker image
+        run: docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/event_ntfy .
+      - name: Push Docker image
+        run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/event_ntfy

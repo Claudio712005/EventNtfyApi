@@ -9,8 +9,8 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.clau</groupId>
-    <artifactId>event-ntfy</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>event_ntfy</artifactId>
+    <version>1.0.0</version>
     <name>event-ntfy</name>
     <description>event-ntfy</description>
     <url/>
