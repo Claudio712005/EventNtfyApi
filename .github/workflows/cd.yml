@@ -35,4 +35,4 @@ jobs:
       - name: Pull image from Docker Hub
         run: sudo docker pull clau2005/event_ntfy:latest
       - name: Run Docker container
-        run: sudo docker run -d -p 8080:8080 --name event_ntfy clau2005/event_ntfy:latest
+        run: sudo docker run -d -p 8080:8080 clau2005/event_ntfy:latest
