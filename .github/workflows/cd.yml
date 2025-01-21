@@ -35,4 +35,4 @@ jobs:
       - name: Pull image from Docker Hub
         run: sudo docker pull clau2005/event_ntfy:latest
       - name: Run Docker container
-        run: sudo docker run -d -p 8080:8080 -e DATABASE_USERNAME=${{ secrets.DATABASE_USERNAME }} -e DATABASE_PASSWORD='${{ secrets.DATABASE_PASSWORD }}' -e EMAIL_USERNAME=${{ secrets.EMAIL_USERNAME }} -e EMAIL_PASSWORD=${{ secrets.EMAIL_PASSWORD }} -e SMS_ACCOUNT_SID=${{ secrets.SMS_ACCOUNT_SID }} -e SMS_AUTH_TOKEN=${{ secrets.SMS_AUTH_TOKEN }} -e SMS_PHONE_NUMBER=${{ secrets.SMS_PHONE_NUMBER }} -e DATABASE_URL=${{ secrets.DATABASE_URL }} clau2005/event_ntfy
+        run: sudo docker run -d -p 8080:8080 clau2005/event_ntfy
