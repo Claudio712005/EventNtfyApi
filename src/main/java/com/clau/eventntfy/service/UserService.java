@@ -59,7 +59,7 @@ public class UserService {
 
   public void update(Long id, UserRequestDTO user) {
 
-    if(id == null) {
+    if (id == null) {
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Id não informado");
     }
 
@@ -67,10 +67,23 @@ public class UserService {
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Usuário não informado");
     }
 
-    validarUnicidade(user);
+    final User existingUser = repository.findById(id)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado"));
 
-    final User existingUser = repository.findById(id).orElseThrow(
-            () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado"));
+    if (!existingUser.getPhoneNumber().equals(user.getPhoneNumber()) &&
+            repository.existsByPhoneNumber(user.getPhoneNumber())) {
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Número de telefone já cadastrado");
+    }
+
+    if (!existingUser.getEmail().equals(user.getEmail()) &&
+            repository.existsByEmail(user.getEmail())) {
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email já cadastrado");
+    }
+
+    if (!existingUser.getUsername().equals(user.getUsername()) &&
+            repository.existsByUsername(user.getUsername())) {
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Nome de usuário já cadastrado");
+    }
 
     User updatedUser = userMapper.toUser(user);
     updatedUser.setId(id);

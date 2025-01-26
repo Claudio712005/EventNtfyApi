@@ -4,10 +4,9 @@ import com.clau.eventntfy.enums.NotificationStatus;
 import com.clau.eventntfy.model.Notification;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
@@ -20,13 +19,10 @@ import java.nio.charset.StandardCharsets;
 import java.time.format.DateTimeFormatter;
 
 @Service
-@NoArgsConstructor
 public class EmailService {
 
-  private JavaMailSender javaMailSender;
-  private ResourceLoader resourceLoader;
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(EmailService.class);
+  private final JavaMailSender javaMailSender;
+  private final ResourceLoader resourceLoader;
 
   @Value("classpath:templates/created-notification.html")
   private Resource createdNotificationTemplate;
@@ -37,29 +33,24 @@ public class EmailService {
   @Value("classpath:templates/deleted-notification.html")
   private Resource deletedNotificationTemplate;
 
+  private static final Logger LOGGER = LoggerFactory.getLogger(EmailService.class);
   private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
-  public EmailService(JavaMailSender javaMailSender, ResourceLoader resourceLoader,
-                      Resource createdNotificationTemplate,
-                      Resource alertNotificationTemplate,
-                      Resource deletedNotificationTemplate) {
+  @Autowired
+  public EmailService(JavaMailSender javaMailSender, ResourceLoader resourceLoader) {
     this.javaMailSender = javaMailSender;
     this.resourceLoader = resourceLoader;
-    this.createdNotificationTemplate = createdNotificationTemplate;
-    this.alertNotificationTemplate = alertNotificationTemplate;
-    this.deletedNotificationTemplate = deletedNotificationTemplate;
   }
 
   public void sendEmail(Notification notification) {
     try {
-
       String template = null;
 
-      if(NotificationStatus.PENDING.equals(notification.getStatus())) {
+      if (NotificationStatus.PENDING.equals(notification.getStatus())) {
         template = new String(createdNotificationTemplate.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
-      } else if(NotificationStatus.SENT.equals(notification.getStatus())) {
+      } else if (NotificationStatus.SENT.equals(notification.getStatus())) {
         template = new String(alertNotificationTemplate.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
-      } else if(NotificationStatus.FAILED.equals(notification.getStatus())) {
+      } else if (NotificationStatus.FAILED.equals(notification.getStatus())) {
         template = new String(deletedNotificationTemplate.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
       }
 
