@@ -162,10 +162,10 @@ Este projeto é classificado como **intermediário a avançado**. Abaixo estão 
 
 #### Aspectos Simplificadores
 
-1**Foco no Backend**:
+1. **Foco no Backend**:
     - O projeto não possui uma interface frontend complexa, o que reduz a necessidade de lidar com frameworks adicionais.
 
-3. **Ferramentas Automatizadas**:
+2. **Ferramentas Automatizadas**:
     - Utilização de Docker e GitHub Actions facilita o processo de containerização, deploy e automação.
 
 #### Classificação Final
