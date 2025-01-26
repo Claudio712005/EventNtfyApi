@@ -61,7 +61,6 @@ class EmailServiceTest {
             deletedNotificationTemplate
     );
 
-    // Configuração da notificação
     User user = new User();
     user.setEmail("user@example.com");
 
@@ -121,7 +120,6 @@ class EmailServiceTest {
     MimeMessage mimeMessage = mock(MimeMessage.class);
     when(javaMailSender.createMimeMessage()).thenReturn(mimeMessage);
 
-    // Use uma RuntimeException ao simular um erro
     doThrow(new RuntimeException("Erro ao enviar o email")).when(javaMailSender).send(mimeMessage);
 
     RuntimeException exception = assertThrows(RuntimeException.class, () -> emailService.sendEmail(notification));
