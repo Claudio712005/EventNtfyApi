@@ -1,4 +1,4 @@
-# Notificação API - Backend Service
+# EventNtfy API - Backend Service
 
 Bem-vindo ao repositório da **EventNtfy**, uma aplicação backend desenvolvida para enviar notificações via e-mail e SMS utilizando **Twilio**, **Spring Boot** e **Docker**.
 
