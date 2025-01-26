@@ -24,9 +24,9 @@ jobs:
       - name: Login to Docker Hub
         run: docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_PASSWORD }}
       - name: Build Docker image
-        run: docker build -t clau2005/event_ntfy .
+        run: sudo docker build -t clau2005/event_ntfy .
       - name: Push Docker image
-        run: docker push clau2005/event_ntfy
+        run: sudo docker push clau2005/event_ntfy
 
   deploy:
     needs: build
