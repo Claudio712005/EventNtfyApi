@@ -4,6 +4,7 @@ import com.clau.eventntfy.enums.NotificationStatus;
 import com.clau.eventntfy.model.Notification;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+import lombok.NoArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +20,11 @@ import java.nio.charset.StandardCharsets;
 import java.time.format.DateTimeFormatter;
 
 @Service
+@NoArgsConstructor
 public class EmailService {
 
-  private final JavaMailSender javaMailSender;
-  private final ResourceLoader resourceLoader;
+  private JavaMailSender javaMailSender;
+  private ResourceLoader resourceLoader;
 
   @Value("classpath:templates/created-notification.html")
   private Resource createdNotificationTemplate;
