@@ -49,8 +49,7 @@ Este projeto consiste em uma API de notificações que envia mensagens tanto via
 1. Clone o repositório para o seu ambiente local:
 
 ```bash
-git clone https://github.com/seu-usuario/projeto-notificacao.git
-cd projeto-notificacao
+git clone https://github.com/Claudio712005/EventNtfyApi.git
 ```
 
 2. Configure as variáveis de ambiente necessárias para a aplicação. Crie um arquivo .env ou adicione diretamente no seu ambiente local as seguintes variáveis e seus respectivos valores:
